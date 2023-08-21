@@ -94,24 +94,31 @@ my_frame.pack(pady = 50)
 
 # Creates frames for cards
 dealer_frame = LabelFrame(my_frame, text = "Dealer", bd = 0, font = ("Helvetica bold", 18))
-dealer_frame.grid(row = 0, column = 0, padx = 50, ipadx = 20, ipady = 5)
+dealer_frame.pack(pady = 20, ipadx = 20, ipady = 5)
 
 player_frame = LabelFrame(my_frame, text = "Player", bd = 0, font = ("Helvetica bold", 18))
-player_frame.grid(row = 0, column = 1, ipadx = 20, ipady = 5)
+player_frame.pack(ipadx = 20, ipady = 5)
 
 # Put cards in frame
 dealer_label = Label(dealer_frame, text = '')
-dealer_label.pack(pady = 20)
+dealer_label.pack(pady = 10)
 
 player_label = Label(player_frame, text = '')
-player_label.pack(pady = 20)
+player_label.pack(pady = 10)
+
+# Create button frame
+button_frame = Frame(root, bg = "green")
+button_frame.pack(pady = 10)
 
 # Create a couple buttonsS
-shuffle_button = Button(root, text = "Suffle Deck", font = ("Helvetica bold", 14), command = shuffle)
-shuffle_button.pack(pady = 20)
+shuffle_button = Button(button_frame, text = "Suffle Deck", font = ("Helvetica bold", 14), command = shuffle)
+shuffle_button.grid(row = 0, column = 0)
 
-deal_button = Button(root, text = "Deal Card", font = ("Helvetica bold", 14), command = deal_cards)
-deal_button.pack(pady = 20)
+deal_button = Button(button_frame, text = "Hit", font = ("Helvetica bold", 14), command = deal_cards)
+deal_button.grid(row = 0, column = 1, padx = 10)
+
+stand_button = Button(button_frame, text = "Stand", font = ("Helvetica bold", 14))
+stand_button.grid(row = 0, column = 2)
 
 # Start game
 shuffle()
