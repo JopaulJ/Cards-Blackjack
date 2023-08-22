@@ -21,6 +21,19 @@ def resize_cards(card):
 
 # Shuffle the cards
 def shuffle():
+    # Clear all old cards from prev games
+    dealer_label_1.config(image = '')
+    dealer_label_2.config(image = '')
+    dealer_label_3.config(image = '')
+    dealer_label_4.config(image = '')
+    dealer_label_5.config(image = '')
+
+    player_label_1.config(image = '')
+    player_label_2.config(image = '')
+    player_label_3.config(image = '')
+    player_label_4.config(image = '')
+    player_label_5.config(image = '')
+
     # Define deck
     suits = ["diamonds", "clubs", "hearts", "spades"]
     values = range(2, 15)
@@ -34,9 +47,11 @@ def shuffle():
             deck.append(f'{value}_of_{suit}')
 
     # Create our players
-    global dealer, player
+    global dealer, player, dealer_spot, player_spot
     dealer = []
     player = []
+    dealer_spot = 0
+    player_spot = 0
 
     # Grab a random card for dealer, remove that card from deck and add to dealer list and output to screen
     card = random.choice(deck)
@@ -57,6 +72,11 @@ def shuffle():
     # Put remaining cards in title bar
     root.title(f"My Card Game - {len(deck)} Cards left")
 
+def dealer_hit():
+    pass
+
+def player_hit():
+    pass
 
 # Deal out the cards
 def deal_cards():
@@ -99,12 +119,39 @@ dealer_frame.pack(pady = 20, ipadx = 20, ipady = 5)
 player_frame = LabelFrame(my_frame, text = "Player", bd = 0, font = ("Helvetica bold", 18))
 player_frame.pack(ipadx = 20, ipady = 5)
 
-# Put cards in frame
-dealer_label = Label(dealer_frame, text = '')
-dealer_label.pack(pady = 10)
 
-player_label = Label(player_frame, text = '')
-player_label.pack(pady = 10)
+# Put dealer cards in frame
+dealer_label_1 = Label(dealer_frame, text = '')
+dealer_label_1.grid(row = 0, column = 0, pady = 10, padx = 20)
+
+dealer_label_2 = Label(dealer_frame, text = '')
+dealer_label_2.grid(row = 0, column = 1, pady = 10, padx = 20)
+
+dealer_label_3 = Label(dealer_frame, text = '')
+dealer_label_3.grid(row = 0, column = 2, pady = 10, padx = 20)
+
+dealer_label_4 = Label(dealer_frame, text = '')
+dealer_label_4.grid(row = 0, column = 3, pady = 10, padx = 20)
+
+dealer_label_5 = Label(dealer_frame, text = '')
+dealer_label_5.grid(row = 0, column = 4, pady = 10, padx = 20)
+
+# Put player cards in frame
+player_label_1 = Label(player_frame, text = '')
+player_label_1.grid(row = 1, column = 0, pady = 10, padx = 20)
+
+player_label_2 = Label(player_frame, text = '')
+player_label_2.grid(row = 1, column = 1, pady = 10, padx = 20)
+
+player_label_3 = Label(player_frame, text = '')
+player_label_3.grid(row = 1, column = 2, pady = 10, padx = 20)
+
+player_label_4 = Label(player_frame, text = '')
+player_label_4.grid(row = 1, column = 3, pady = 10, padx = 20)
+
+player_label_5 = Label(player_frame, text = '')
+player_label_5.grid(row = 1, column = 4, pady = 10, padx = 20)
+
 
 # Create button frame
 button_frame = Frame(root, bg = "green")
