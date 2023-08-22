@@ -53,31 +53,105 @@ def shuffle():
     dealer_spot = 0
     player_spot = 0
 
-    # Grab a random card for dealer, remove that card from deck and add to dealer list and output to screen
-    card = random.choice(deck)
-    deck.remove(card)
-    dealer.append(card)
-    global dealer_image
-    dealer_image = resize_cards(f'Cards_images/{card}.png')
-    dealer_label.config(image = dealer_image)
+    # Shuffle Two cards for player and dealer
+    dealer_hit()
+    dealer_hit()
 
-    # Grab a random card for player
-    card = random.choice(deck)
-    deck.remove(card)
-    player.append(card)
-    global player_image
-    player_image = resize_cards(f'Cards_images/{card}.png')
-    player_label.config(image = player_image)
+    player_hit()
+    player_hit()
 
     # Put remaining cards in title bar
     root.title(f"My Card Game - {len(deck)} Cards left")
 
 def dealer_hit():
-    pass
+    global dealer_spot
+    if dealer_spot < 5:
+        try:
+            # Grab a random card for dealer
+            dealer_card = random.choice(deck)
+            deck.remove(dealer_card)
+            dealer.append(dealer_card)
+
+            # Outputing image
+            global dealer_image1, dealer_image2, dealer_image3, dealer_image4, dealer_image5
+
+            if dealer_spot == 0:
+                dealer_image1 = resize_cards(f'Cards_images/{dealer_card}.png')
+                dealer_label_1.config(image = dealer_image1)
+                # Increment dealer spot counter
+                dealer_spot += 1
+            elif dealer_spot == 1:
+                dealer_image2 = resize_cards(f'Cards_images/{dealer_card}.png')
+                dealer_label_2.config(image = dealer_image2)
+                # Increment dealer spot counter
+                dealer_spot += 1
+            elif dealer_spot == 2:
+                dealer_image3 = resize_cards(f'Cards_images/{dealer_card}.png')
+                dealer_label_3.config(image = dealer_image3)
+                # Increment dealer spot counter
+                dealer_spot += 1
+            elif dealer_spot == 3:
+                dealer_image4 = resize_cards(f'Cards_images/{dealer_card}.png')
+                dealer_label_4.config(image = dealer_image4)
+                # Increment dealer spot counter
+                dealer_spot += 1
+            elif dealer_spot == 4:
+                dealer_image5 = resize_cards(f'Cards_images/{dealer_card}.png')
+                dealer_label_5.config(image = dealer_image5)
+                # Increment dealer spot counter
+                dealer_spot += 1
+
+            # Put remaining cards in title bar
+            root.title(f"My Card Game - {len(deck)} Cards left")
+
+        except:
+           root.title('My Card Game - No cards in deck')
 
 def player_hit():
-    pass
+    global player_spot
+    if player_spot < 5:
+        try:
+            # Grab a random card for player
+            player_card = random.choice(deck)
+            deck.remove(player_card)
+            player.append(player_card)
 
+            # Outputing image
+            global player_image1, player_image2, player_image3, player_image4, player_image5
+
+            if player_spot == 0:
+                player_image1 = resize_cards(f'Cards_images/{player_card}.png')
+                player_label_1.config(image = player_image1)
+                # Increment player spot counter
+                player_spot += 1
+            elif player_spot == 1:
+                player_image2 = resize_cards(f'Cards_images/{player_card}.png')
+                player_label_2.config(image = player_image2)
+                # Increment player spot counter
+                player_spot += 1
+            elif player_spot == 2:
+                player_image3 = resize_cards(f'Cards_images/{player_card}.png')
+                player_label_3.config(image = player_image3)
+                # Increment player spot counter
+                player_spot += 1
+            elif player_spot == 3:
+                player_image4 = resize_cards(f'Cards_images/{player_card}.png')
+                player_label_4.config(image = player_image4)
+                # Increment player spot counter
+                player_spot += 1
+            elif player_spot == 4:
+                player_image5 = resize_cards(f'Cards_images/{player_card}.png')
+                player_label_5.config(image = player_image5)
+                # Increment player spot counter
+                player_spot += 1
+
+            # Put remaining cards in title bar
+            root.title(f"My Card Game - {len(deck)} Cards left")
+
+        except:
+            root.title('My Card Game - No cards in deck')
+
+"""
 # Deal out the cards
 def deal_cards():
     try:
@@ -106,7 +180,7 @@ def deal_cards():
 
     except:
         root.title('My Card Game - No cards in deck')
-
+"""
 
 #####################################################################################
 my_frame = Frame(root, bg = "green")
@@ -161,8 +235,8 @@ button_frame.pack(pady = 10)
 shuffle_button = Button(button_frame, text = "Suffle Deck", font = ("Helvetica bold", 14), command = shuffle)
 shuffle_button.grid(row = 0, column = 0)
 
-deal_button = Button(button_frame, text = "Hit", font = ("Helvetica bold", 14), command = deal_cards)
-deal_button.grid(row = 0, column = 1, padx = 10)
+hit_button = Button(button_frame, text = "Hit", font = ("Helvetica bold", 14), command = player_hit)
+hit_button.grid(row = 0, column = 1, padx = 10)
 
 stand_button = Button(button_frame, text = "Stand", font = ("Helvetica bold", 14))
 stand_button.grid(row = 0, column = 2)
