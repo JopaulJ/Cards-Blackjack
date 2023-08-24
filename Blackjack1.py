@@ -1,12 +1,32 @@
 from tkinter import *
 import random
 from PIL import Image, ImageTk
+from tkinter import messagebox
 
 root = Tk()
 root.title('My Card Game')
 # root.iconbitmap('c:/gui/codemy.ico')
 root.geometry("1200x800")
 root.configure(background = "green")
+
+
+# Test for blackjack on shuffle
+def blackjack_suffle(player):
+    if player == "dealer":
+        if len(dealer_score) == 2:
+            if dealer_score[0] + dealer_score[1] == 21:
+                messagebox.showinfo("Dealer Wins!", "Blackjack! Dealer Wins")
+                # Disable buttons
+                hit_button.config(state = "disabled")
+                stand_button.config(state = "disabled")
+
+    if player == "player":
+        if len(player_score) == 2:
+            if player_score[0] + player_score[1] == 21:
+                messagebox.showinfo("Player Wins!", "Blackjack! Player Wins")
+                # Disable buttons
+                hit_button.config(state = "disabled")
+                stand_button.config(state = "disabled")
 
 
 # Resize Cards
@@ -19,8 +39,14 @@ def resize_cards(card):
     our_card_image = ImageTk.PhotoImage(our_card_resize_image)
     return our_card_image
 
+
 # Shuffle the cards
 def shuffle():
+
+    # Enable buttons
+    hit_button.config(state = "normal")
+    stand_button.config(state = "normal")
+
     # Clear all old cards from prev games
     dealer_label_1.config(image = '')
     dealer_label_2.config(image = '')
@@ -47,9 +73,11 @@ def shuffle():
             deck.append(f'{value}_of_{suit}')
 
     # Create our players
-    global dealer, player, dealer_spot, player_spot
+    global dealer, player, dealer_spot, player_spot, dealer_score, player_score
     dealer = []
     player = []
+    dealer_score = []
+    player_score = []
     dealer_spot = 0
     player_spot = 0
 
@@ -63,6 +91,7 @@ def shuffle():
     # Put remaining cards in title bar
     root.title(f"My Card Game - {len(deck)} Cards left")
 
+
 def dealer_hit():
     global dealer_spot
     if dealer_spot < 5:
@@ -71,6 +100,15 @@ def dealer_hit():
             dealer_card = random.choice(deck)
             deck.remove(dealer_card)
             dealer.append(dealer_card)
+            
+            # Append to dealer score list and convert face cards to 10 or 11
+            dcard = int(dealer_card.split("_", 1)[0])
+            if dcard == 14:
+                dealer_score.append(11)
+            elif dcard == 11 or dcard == 12 or dcard == 13:
+                dealer_score.append(10)
+            else:
+                dealer_score.append(dcard)
 
             # Outputing image
             global dealer_image1, dealer_image2, dealer_image3, dealer_image4, dealer_image5
@@ -107,6 +145,10 @@ def dealer_hit():
         except:
            root.title('My Card Game - No cards in deck')
 
+        # Check for blackjack
+        blackjack_suffle("dealer")
+
+
 def player_hit():
     global player_spot
     if player_spot < 5:
@@ -115,6 +157,15 @@ def player_hit():
             player_card = random.choice(deck)
             deck.remove(player_card)
             player.append(player_card)
+
+            # Append to player score list and convert face cards to 10 or 11
+            pcard = int(player_card.split("_", 1)[0])
+            if pcard == 14:
+                player_score.append(11)
+            elif pcard == 11 or pcard == 12 or pcard == 13:
+                player_score.append(10)
+            else:
+                player_score.append(pcard)
 
             # Outputing image
             global player_image1, player_image2, player_image3, player_image4, player_image5
@@ -150,6 +201,9 @@ def player_hit():
 
         except:
             root.title('My Card Game - No cards in deck')
+
+        # Check for blackjack
+        blackjack_suffle("player")
 
 """
 # Deal out the cards
