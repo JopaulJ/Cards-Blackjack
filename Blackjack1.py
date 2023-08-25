@@ -15,18 +15,36 @@ def blackjack_suffle(player):
     if player == "dealer":
         if len(dealer_score) == 2:
             if dealer_score[0] + dealer_score[1] == 21:
-                messagebox.showinfo("Dealer Wins!", "Blackjack! Dealer Wins")
-                # Disable buttons
-                hit_button.config(state = "disabled")
-                stand_button.config(state = "disabled")
+                # Update status
+                blackjack_status["dealer"] = "yes"
 
     if player == "player":
         if len(player_score) == 2:
             if player_score[0] + player_score[1] == 21:
-                messagebox.showinfo("Player Wins!", "Blackjack! Player Wins")
-                # Disable buttons
-                hit_button.config(state = "disabled")
-                stand_button.config(state = "disabled")
+                # Update status
+                blackjack_status["player"] = "yes"
+
+    if len(dealer_score) == 2 and len(player_score) == 2:
+        # Check for push/tie
+        if blackjack_status["dealer"] == "yes" and blackjack_status["player"] == "yes":
+            messagebox.showinfo("Push!", "It's a tie")
+            # Disable buttons
+            hit_button.config(state = "disabled")
+            stand_button.config(state = "disabled")
+
+        # Check for dealer blackjack win
+        elif blackjack_status["dealer"] == "yes":
+            messagebox.showinfo("Dealer Wins!", "Blackjack! Dealer Wins")
+            # Disable buttons
+            hit_button.config(state = "disabled")
+            stand_button.config(state = "disabled")
+
+        # Check for player blackjack win
+        elif blackjack_status["player"] == "yes":
+            messagebox.showinfo("Player Wins!", "Blackjack! Player Wins")
+            # Disable buttons
+            hit_button.config(state = "disabled")
+            stand_button.config(state = "disabled")
 
 
 # Resize Cards
@@ -42,6 +60,10 @@ def resize_cards(card):
 
 # Shuffle the cards
 def shuffle():
+
+    # Keep track of winning
+    global blackjack_status
+    blackjack_status = {"dealer": "no", "player": "no"}
 
     # Enable buttons
     hit_button.config(state = "normal")
