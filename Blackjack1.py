@@ -12,6 +12,11 @@ root.configure(background = "green")
 
 # Test for blackjack on shuffle
 def blackjack_suffle(player):
+    global player_total, dealer_total
+    # Keep track of scores
+    dealer_total = 0
+    player_total = 0
+
     if player == "dealer":
         if len(dealer_score) == 2:
             if dealer_score[0] + dealer_score[1] == 21:
@@ -23,6 +28,12 @@ def blackjack_suffle(player):
             if player_score[0] + player_score[1] == 21:
                 # Update status
                 blackjack_status["player"] = "yes"
+        else:
+            # Loop through player score list and ad up cards
+            for score in player_score:
+                player_total += score
+                if player_total > 21:
+                    blackjack_status["player"] = "bust"
 
     if len(dealer_score) == 2 and len(player_score) == 2:
         # Check for push/tie
@@ -45,6 +56,13 @@ def blackjack_suffle(player):
             # Disable buttons
             hit_button.config(state = "disabled")
             stand_button.config(state = "disabled")
+    
+    # Check for player bust
+    if blackjack_status["player"] == "bust":
+        messagebox.showinfo("PLayer Bust!", f"Player Loses! {player_total}")
+        # Disable buttons
+        hit_button.config(state = "disabled")
+        stand_button.config(state = "disabled")
 
 
 # Resize Cards
@@ -62,7 +80,12 @@ def resize_cards(card):
 def shuffle():
 
     # Keep track of winning
-    global blackjack_status
+    global blackjack_status, player_total, dealer_total
+
+    # Keep track of score
+    player_total = 0
+    dealer_total = 0
+
     blackjack_status = {"dealer": "no", "player": "no"}
 
     # Enable buttons
