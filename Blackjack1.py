@@ -32,8 +32,27 @@ def blackjack_suffle(player):
             # Loop through player score list and ad up cards
             for score in player_score:
                 player_total += score
-                if player_total > 21:
-                    blackjack_status["player"] = "bust"
+
+            if player_total > 21:
+                # Check for Ace conversion
+                for card_no, card in enumerate(player_score):
+                    if card == 11:
+                        player_score[card_no] = 1
+
+                        # Clear player total and recalculate
+                        player_total = 0
+                        for score in player_score:
+                            player_total += score
+                        
+                        # Check for over 21
+                        if player_total > 21:
+                            blackjack_status["player"] = "bust"
+
+                # Can use else statment on for loop?!
+                else:
+                    if player_total > 21:
+                        blackjack_status["player"] = "bust"
+            
 
     if len(dealer_score) == 2 and len(player_score) == 2:
         # Check for push/tie
