@@ -268,37 +268,7 @@ def player_hit():
 
         # Check for blackjack
         blackjack_suffle("player")
-
-"""
-# Deal out the cards
-def deal_cards():
-    try:
-        # Grab card etc etc... same as above shuffle function
-        card = random.choice(deck)
-        deck.remove(card)
-        dealer.append(card)
-
-        # Outputing image
-        global dealer_image
-        dealer_image = resize_cards(f'Cards_images/{card}.png')
-        dealer_label.config(image = dealer_image)
-
-        # Grab a random card for player
-        card = random.choice(deck)
-        deck.remove(card)
-        player.append(card)
-
-        # Outputing image
-        global player_image
-        player_image = resize_cards(f'Cards_images/{card}.png')
-        player_label.config(image = player_image)
-
-        # Put remaining cards in title bar
-        root.title(f"My Card Game - {len(deck)} Cards left")
-
-    except:
-        root.title('My Card Game - No cards in deck')
-"""
+        
 
 #####################################################################################
 my_frame = Frame(root, bg = "green")
